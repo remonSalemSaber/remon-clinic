@@ -32,6 +32,7 @@ class ProductProduct(models.Model):
     
     
     def get_treatment_charge(self):
+        print("remon")
         return self.lst_price
     
 
