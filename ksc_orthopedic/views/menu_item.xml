@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_orthopedic" name="Orthopedic" sequence="2" web_icon="ksc_orthopedic,static/description/icon.png"/>
+
+    <menuitem id="action_orthopedic_consultation" parent="menu_orthopedic" name="Consultation" sequence="1" action="action_ksc_orthopedic_consultation"/>
+    <menuitem id="action_orthopedic_appointment" parent="menu_orthopedic" name="Appointment" sequence="1" action="action_ksc_orthopedic_appointment"/>
+    <menuitem id="action_orthopedic_follow_up" parent="menu_orthopedic" name="Follow Up" sequence="1" action="action_ksc_orthopedic_follow_up"/>
+    
+
+    <menuitem id="action_menu_patient" parent="menu_orthopedic" name="Patients" sequence="2" action="ksc_orthopedic.action_patient"/>
+
+    <menuitem id="menu_action_move_out_invoice_type" parent="menu_orthopedic" action="account.action_move_out_invoice_type" sequence="3"/>
+    <menuitem id="menu_action_account_payments_receivable" parent="menu_orthopedic" action="action_account_payments" sequence="4"/>
+
+    <menuitem id="action_menu_config" parent="menu_orthopedic" name="Config" sequence="9" action="ksc_orthopedic.action_orthopedic_config"/>
+</odoo>

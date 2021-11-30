@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.view.form.inherit</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <notebook position="before">
+                <group name="clinic" string="Clinic" col="4">
+                </group>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.view.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <page name="general_information" position="inside">
+                <group name="clinic" string="Clinic" col="4">
+                </group>
+            </page>
+        </field>
+    </record>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Clinic" name="clinic">
+                    <group>
+                        <group string="Patient">
+                            <field name="is_patient" />
+                        </group>
+                        <group string="Physician">
+                            <field name="is_physician" />
+                        </group>
+                    </group>
+                </page>
+                <page name="diseases_ids" string="Diseases">
+                    <field name="diseases_ids" nolabel="1" colspan="4" />
+                </page>
+                <page name="clinical_ass" attrs="{'invisible': [('is_patient','=',False)]}" string="Clinical Assesment">
+                    <div>NOTE: Details are shown based on last Completed Patient Evaluation. <t attrs="{'invisible': [('last_evaluation_id','=',False)]}">Last Appointment: <field name="last_evaluation_id" nolabel="1" class="oe_link"/></t></div>
+                    <group>
+                        <group>
+                            <field name="weight"/>
+                            <field name="height"/>
+                            <field name="temp"/>
+                            <field name="hr"/>
+                        </group>
+                        <group>
+                            <field name="rr"/>
+                            <label string="Systolic/Diastolic BP" for="systolic_bp"/>
+                            <div name="systolic_bp">
+                                <div class="oe_inline" style="display: inline;" >
+                                    <field name="systolic_bp" class="oe_inline"/>/<field name="diastolic_bp" class="oe_inline"/>
+                                </div>
+                            </div>
+                            <field name="spo2"/>
+                        </group>
+                        <group>
+                            <field name="bmi"/>
+                        </group>
+                        <group>
+                            <field name="bmi_state"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//notebook" position="before">
+                <group string="Patient Info">
+                    <group>
+                        <field name="gender" />
+                        <field name="birthday" />
+                        <field name="age" />
+                        <field name="blood_group" />
+                        <field name="marital_status" />
+                    </group>
+                    <group>
+                        <field name="code" />
+                        <field name="civil" />
+                        <field name="nationality" />
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//h1/field[@name='name']" position="after">
+                <field name="arabic_name"  placeholder="AR Name" attrs="{'required' : [('type', '=', 'contact')]}"/>
+            </xpath>
+            <xpath expr="//h1/field[@name='name']" position="attributes">
+                <attribute name="placeholder">EN Name</attribute>
+            </xpath>
+            <xpath expr="//div[@class='oe_title']//div[@class='o_row']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='website']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_type']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <div name="button_box" position="inside">
+                <button name="action_evaluation" type="object" class="oe_stat_button" icon="fa-th-list">
+                    <field string="Evaluations" name="evaluation_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="action_patient" model="ir.actions.act_window">
+        <field name="name">Patient</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="domain">[('is_patient','=',True)]</field>
+        <field name="context">{ 'default_is_patient' : 1 }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add a Patient
+            </p>
+        </field>
+    </record>
+
+    <record id="action_physician" model="ir.actions.act_window">
+        <field name="name">Physician</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="domain">[('is_physician','=',True)]</field>
+        <field name="context">{ 'default_is_physician' : 1 }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add a Physician
+            </p>
+        </field>
+    </record>
+
+</odoo>

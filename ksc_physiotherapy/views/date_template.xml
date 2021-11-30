@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="date_template_view_tree" model="ir.ui.view">
+        <field name="name">date.template.view.tree</field>
+        <field name="model">date.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="day_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="date_template_view_form" model="ir.ui.view">
+        <field name="name">date.template.view.form</field>
+        <field name="model">date.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <field name="day_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_date_template" model="ir.actions.act_window">
+        <field name="name">date template</field>
+        <field name="res_model">date.template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add new record.
+            </p>
+        </field>
+    </record>
+
+
+     <record id="action_weekdays" model="ir.actions.act_window">
+        <field name="name">weekdays</field>
+        <field name="res_model">custom.weekdays</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add new record.
+            </p>
+        </field>
+    </record>
+
+</odoo>

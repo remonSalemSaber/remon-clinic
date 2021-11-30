@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/ksc_clinic_base/static/src/js/web_calendar.js"></script>
+
+            <script type="text/javascript" src="/ksc_clinic_base/static/src/js/calendar_view.js"/>
+            <script type="text/javascript" src="/ksc_clinic_base/static/src/js/calendar_model.js"/>
+            <script type="text/javascript" src="/ksc_clinic_base/static/src/js/calendar_renderer.js"/>
+            <script type="text/javascript" src="/ksc_clinic_base/static/src/js/calendar_controller.js"/>
+        </xpath>
+    </template>
+</odoo>

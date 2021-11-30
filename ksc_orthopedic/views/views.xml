@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.view.form.inherit</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="ksc_clinic_base.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <group name="clinic" position="inside">
+                <field name="avalibel_in_orthopedic" />
+            </group>
+        </field>
+    </record>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.view.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="ksc_clinic_base.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <group name="clinic" position="inside">
+                <field name="avalibel_in_orthopedic" />
+            </group>
+        </field>
+    </record>
+    
+    <record id="action_patient" model="ir.actions.act_window">
+        <field name="name">Patient</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="domain">[('is_patient','=',True)]</field>
+        <field name="context">{ 'default_is_patient' : 1 }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add a Patient
+            </p>
+        </field>
+    </record>
+</odoo>

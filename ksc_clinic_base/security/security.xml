@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ksc_clinic_base_category" model="ir.module.category">
+            <field name="name">Clinic</field>
+        </record>
+    </data>
+</odoo>

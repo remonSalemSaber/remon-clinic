@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ksc_dental_category" model="ir.module.category">
+            <field name="name">Dental</field>
+            <field name="parent_id" ref="ksc_clinic_base.ksc_clinic_base_category"/>
+        </record>
+
+        <record id="ksc_dental_nurse" model="res.groups">
+            <field name="name">Nurse</field>
+            <field name="category_id" ref="ksc_dental_category"/>
+        </record>
+
+        <record id="ksc_dental_doctor" model="res.groups">
+            <field name="name">Doctor</field>
+            <field name="implied_ids" eval="[(4, ref('ksc_dental_nurse'))]"/>
+            <field name="category_id" ref="ksc_dental_category"/>
+        </record>
+
+        <record id="ksc_dental_receptionist" model="res.groups">
+            <field name="name">Receptionist</field>
+            <field name="implied_ids" eval="[(4, ref('ksc_dental_doctor'))]"/>
+            <field name="category_id" ref="ksc_dental_category"/>
+        </record>
+
+        <record id="ksc_dental_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="implied_ids" eval="[(4, ref('ksc_dental_receptionist'))]"/>
+            <field name="category_id" ref="ksc_dental_category"/>
+        </record>
+
+        <record id="group_allow_delete_teeth_treatment" model="res.groups">
+            <field name="name">allow to delete teeth treatment</field>
+            <!-- <field name="category_id" ref="ksc_clinic_base.ksc_clinic_base_category"/> -->
+        </record>
+
+    </data>
+</odoo>

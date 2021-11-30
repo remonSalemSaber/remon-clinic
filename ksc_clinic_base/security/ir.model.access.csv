@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+ksc_room_id,ksc_room_name,model_ksc_room,,1,1,1,1
+ksc_appointment_id,ksc_appointment_name,model_ksc_appointment,,1,1,1,1
+ksc_service_line_id,ksc_service_line_name,model_ksc_service_line,,1,1,1,1
+
+ksc_diseases_id,ksc_diseases_name,model_ksc_diseases,,1,1,1,1
+
+ksc_wizard_appointment_followup_id,ksc_wizard_appointment_followup_name,model_ksc_wizard_appointment_followup,,1,1,1,1
+
+
+ksc_patient_evaluation_id,ksc_patient_evaluation_name,model_ksc_patient_evaluation,,1,1,1,1

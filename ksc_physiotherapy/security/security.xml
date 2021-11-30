@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ksc_physiotherapy_category" model="ir.module.category">
+            <field name="name">Physiotherapy</field>
+            <field name="parent_id" ref="ksc_clinic_base.ksc_clinic_base_category"/>
+        </record>
+
+        <record id="ksc_physiotherapy_nurse" model="res.groups">
+            <field name="name">Nurse</field>
+            <field name="category_id" ref="ksc_physiotherapy_category"/>
+        </record>
+
+        <record id="ksc_physiotherapy_doctor" model="res.groups">
+            <field name="name">Doctor</field>
+            <field name="implied_ids" eval="[(4, ref('ksc_physiotherapy_nurse'))]"/>
+            <field name="category_id" ref="ksc_physiotherapy_category"/>
+        </record>
+
+        <record id="ksc_physiotherapy_receptionist" model="res.groups">
+            <field name="name">Receptionist</field>
+            <field name="implied_ids" eval="[(4, ref('ksc_physiotherapy_doctor'))]"/>
+            <field name="category_id" ref="ksc_physiotherapy_category"/>
+        </record>
+
+        <record id="ksc_physiotherapy_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="implied_ids" eval="[(4, ref('ksc_physiotherapy_receptionist'))]"/>
+            <field name="category_id" ref="ksc_physiotherapy_category"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,367 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.ui.view" id="hms_physiotherapy_exercise_group_formview">
+        <field name="name">Exercise Group</field>
+        <field name="model">physiotherapy.exercise.group</field>
+        <field name="arch" type="xml">
+            <form string="Exercise Group Master">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="duration" widget="float_time" />
+                        </group>
+                        <group>
+                            <field name="product_id" context="{'default_type':'service'}" domain="[('type','=','service')]"/>
+                        </group>
+                    </group>
+                    <field name="exercise_ids" colspan="4" nolabel="1">
+                        <tree editable="top" string="Exercise Name">
+                            <field name="name" required="1"/>
+                        </tree>
+                    </field>
+                    <field name="description" placeholder="Description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hms_physiotherapy_exercise_group_treeview">
+        <field name="name">Exercise Group Master list</field>
+        <field name="model">physiotherapy.exercise.group</field>
+        <field name="arch" type="xml">
+            <tree string="Exercise Group Master">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ksc_action_form_physiotherapy_exercise_group">
+        <field name="name">Exercise Group Master</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">physiotherapy.exercise.group</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hms_physiotherapy_exercise_group_treeview"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add new record.
+            </p>
+        </field>
+    </record>
+
+    <!-- End Exercise Group Master Of Physiotherapy in Config -->
+    <!-- Start Physiotherapy View -->
+    <record id="view_physiotherapy_form" model="ir.ui.view">
+        <field name="name">ksc.physiotherapy.form</field>
+        <field name="model">ksc.physiotherapy</field>
+        <field name="arch" type="xml">
+            <form string="Physiotherapy">
+                <header> 
+                    <button name="action_accept" states="draft" string="Accept" type="object"/>
+                    <button name="action_in_progress" states="accepted" string="In Progress" class="oe_highlight" type="object"/>
+                    <button name="action_done" states="in_progress" string="Done" class="oe_highlight" type="object"/> 
+                    <button name="action_cancel" states="draft" string="Cancel" type="object"/>
+                    <button name="create_invoice" string="Create Invoice" groups="account.group_account_invoice" type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,accepted,in_progress,done" statusbar_colors="{'canceled':'red'}"/>
+                    <field name="invoice_id" invisible="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_invoice" string="View Invoice"  attrs="{'invisible': [('invoice_id', '=', False)]}" type="object" class="oe_stat_button" icon="fa-pencil-square-o" groups="account.group_account_invoice"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <field name="image_128" widget="image" class="oe_avatar" nolabel="1"/>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="patient_id" context="{'default_is_patient':1,'appointment_id':id}"/>
+                            <field name="age"/>
+                            <field name="gender" readonly="1"/>
+                            <field name="pricelist_id" groups="product.group_product_pricelist" options="{'no_open':True,'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="appointment_id" invisible="1"/>
+                            <field name="visit_count"/>
+                            <field name="no_invoice"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+
+                    <notebook name="physiotherapy_note">
+                        <page name="physiotherapy_info" string="Physiotherapy">
+                            <group>
+                                <group>
+                                    <label for="date" string="Date"/>
+                                    <div>
+                                        <field name="date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <field name="physician_id" context="{'default_is_physician':1,'appointment_id':id}"/>
+                                    <field name="physiotherapist_id" context="{'default_is_physician':1,'appointment_id':id}"/>
+                                </group>
+                                <field name="grp_exercise_ids" colspan="4" nolabel="1" attrs="{'readonly': [('state', '=', 'done')]}">
+                                    <tree editable="top" string="Exercise Name">
+                                        <field name="group_id"/>
+                                        <field name="price"/>
+                                        <field name="exercise_ids" widget="many2many_tags"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+
+                        <page name="lowerlimb_info" string="Lower Limb">
+                            <group>
+                                <field name="date_lower_limb"/>
+                            </group>
+                            <field name="lower_data_ids" colspan="4" context="{'default_note_type': 'lower'}">
+                                <tree editable="top" string="Lower Limb Data">
+                                    <field name="name"/>
+                                    <field name="right_val"/>
+                                    <field name="left_val"/>
+                                    <field name="sensory_val"/>
+                                    <field name="note_type" invisible="1"/>
+                                </tree>
+                            </field>
+                            <field name="lower_seldata_ids" colspan="4" context="{'default_selnote_type': 'lower'}">
+                                <tree editable="top" string="Lower Limb Selection Data">
+                                    <field name="name"/>
+                                    <field name="right_val"/>
+                                    <field name="left_val"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="upperlimb_info" string="Upper Limb">
+                            <group>
+                                <field name="date_upper_limb"/>
+                            </group>
+                            <field name="upper_data_ids" colspan="4" context="{'default_note_type': 'upper'}">
+                                <tree editable="top" string="Upper Limb Data">
+                                    <field name="name"/>
+                                    <field name="right_val"/>
+                                    <field name="left_val"/>
+                                    <field name="sensory_val"/>
+                                    <field name="note_type" invisible="1"/>
+                                </tree>
+                            </field>
+                            <field name="upper_seldata_ids" colspan="4">
+                                <tree editable="top" string="Upper Limb Selection Data" context="{'default_selnote_type': 'upper'}">
+                                    <field name="name"/>
+                                    <field name="right_val"/>
+                                    <field name="left_val"/>
+                                </tree>
+                            </field>   
+                        </page>
+                        <page name="hand_info" string="Hand">
+                            <group>
+                                <field name="date_hand" string="Date &amp; Time"/>
+                            </group>
+                            <field name="hand_data_ids" colspan="4" context="{'default_note_type': 'hand'}">
+                                <tree editable="top" string="Hand Data">
+                                    <field name="name"/>
+                                    <field name="right_val"/>
+                                    <field name="left_val"/>
+                                    <field name="sensory_val"/>
+                                    <field name="note_type" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="physiotherapy_history" string="Physiotherapy History">
+                            <group string="">
+                                <field name="physiotherapy_history" readonly="1" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hms_physiotherapy_treeview">
+        <field name="name">Physiotherapy List</field>
+        <field name="model">ksc.physiotherapy</field>
+        <field name="arch" type="xml">
+            <tree string="Physiotherapy">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="patient_id"/>
+                <field name="years_sex"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hms_physiotherapy_search" model="ir.ui.view">
+        <field name="name">Physiotherapy Search</field>
+        <field name="model">ksc.physiotherapy</field>
+        <field name="arch" type="xml">
+            <search string="Physiotherapy Today">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="patient_id"/>
+                <filter name="today" string="Today" domain="[('date','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('date','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]"/>
+                <filter name="tomorrow" string="Tomorrow" domain="[('date','&lt;=', datetime.datetime.combine(context_today()+datetime.timedelta(days=1), datetime.time(23,59,59))), ('date','&gt;=', datetime.datetime.combine(context_today()+datetime.timedelta(days=1), datetime.time(0,0,0)))]" />
+                <separator/>
+                <filter name="done" string="Not Done" domain="[('state','!=','done')]"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Doctor's Appointments" name="physician_groupby" domain="[]" context="{'group_by':'physician_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_ksc_hms_physiotherapy_calendar" model="ir.ui.view">
+        <field name="name">ksc.physiotherapy.calendar</field>
+        <field name="model">ksc.physiotherapy</field>
+        <field name="type">calendar</field>
+        <field name="arch" type="xml">
+            <calendar mode="day" quick_add="False" string="Physiotherapy" color="physiotherapist_id" date_start="date" date_stop="end_date">
+                <field name="physiotherapist_id"/>
+                <field name="physician_id"/>
+                <field name="patient_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_ksc_hms_physiotherapy_pivot" model="ir.ui.view">
+        <field name="name">ksc.physiotherapy.pivot</field>
+        <field name="model">ksc.physiotherapy</field>
+        <field name="arch" type="xml">
+            <pivot string="Physiotherapy">
+                <field name="date" type="row"/>
+                <field name="physician_id" type="row"/>
+                <field name="patient_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ksc_action_form_physiotherapy">
+        <field name="name">Physiotherapy</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ksc.physiotherapy</field>
+        <field name="view_mode">calendar,tree,form,pivot</field>
+        <field name="context">{'search_default_today': 1}</field>
+        <field name="view_id" ref="view_ksc_hms_physiotherapy_calendar"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add new record.
+            </p>
+        </field>
+    </record>
+    <!-- End Physiotherapy View -->
+
+    <!-- Start kscOpdPhysiotherapyNoteTemplate View -->
+    <record model="ir.ui.view" id="hms_physiotherapy_notetemplate_treeview">
+        <field name="name">Physiotherapy NoteTemplate List</field>
+        <field name="model">ksc.physiotherapy.note.template</field>
+        <field name="arch" type="xml">
+            <tree string="Physiotherapy NoteTemplate">
+                <field name="name"/>
+                <field name="right_val"/>
+                <field name="left_val"/>
+                <field name="sensory_val"/>
+                <field name="note_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hms_physiotherapy_notetemplate_formview">
+        <field name="name">Physiotherapy NoteTemplate Form</field>
+        <field name="model">ksc.physiotherapy.note.template</field>
+        <field name="arch" type="xml">
+            <form string="Physiotherapy NoteTemplate">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="right_val"/>
+                        <field name="left_val"/>
+                        <field name="sensory_val"/>
+                        <field name="note_type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hms_physiotherapy_notetemplate_action">
+        <field name="name">Physiotherapy NoteTemplate</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ksc.physiotherapy.note.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hms_physiotherapy_notetemplate_treeview"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add new record.
+            </p>
+        </field>
+    </record>
+    <!-- End kscOpdPhysiotherapyNoteTemplate View -->
+
+    <!-- Start kscOpdPhysiotherapySelectionNoteTemplate View -->
+    <record model="ir.ui.view" id="hms_physiotherapy_selectionnotetemplate_treeview">
+        <field name="name">Physiotherapy Selection NoteTemplate List</field>
+        <field name="model">ksc.physiotherapy.selection.note.template</field>
+        <field name="arch" type="xml">
+            <tree string="Physiotherapy Selection NoteTemplate">
+                <field name="name"/>
+                <field name="right_val"/>
+                <field name="left_val"/>
+                <field name="selnote_type" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hms_physiotherapy_selectionnotetemplate_formview">
+        <field name="name">Physiotherapy Selection NoteTemplate Form</field>
+        <field name="model">ksc.physiotherapy.selection.note.template</field>
+        <field name="arch" type="xml">
+            <form string="Physiotherapy Selection NoteTemplate">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="right_val"/>
+                        <field name="left_val"/>
+                        <field name="selnote_type" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hms_physiotherapy_selectionnotetemplate_action">
+        <field name="name">Physiotherapy SelectionNote Template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ksc.physiotherapy.selection.note.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hms_physiotherapy_selectionnotetemplate_treeview"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add new record.
+            </p>
+        </field>
+    </record>
+    <!-- End kscOpdPhysiotherapySelectionNoteTemplate View -->
+</odoo>

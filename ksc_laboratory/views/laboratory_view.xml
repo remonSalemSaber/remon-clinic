@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- Laboratory -->
+    <record id="view_ksc_laboratory_tree" model="ir.ui.view">
+        <field name="name">ksc.laboratory.tree</field>
+        <field name="model">ksc.laboratory</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="description"/>
+                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ksc_laboratory_form" model="ir.ui.view">
+        <field name="name">ksc.laboratory.form</field>
+        <field name="model">ksc.laboratory</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="partner_id" readonly="1" required="0"/>
+                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ksc_laboratory" model="ir.actions.act_window">
+        <field name="name">Laboratory</field>
+        <field name="res_model">ksc.laboratory</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new Laboratory.
+            </p>
+        </field>
+    </record>
+
+    <!-- Lab Test type -->
+    <record model="ir.ui.view" id="hms_test_view">
+        <field name="name">Laboratory Test</field>
+        <field name="model">ksc.lab.test</field>
+        <field name="arch" type="xml">
+            <form string="Lab Tests">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="product_id" domain="[('type','=','service')]" context="{'default_type': 'service'}"/>
+                            <field name="ksc_tat"/>
+                            <field name="sample_type_id"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                            <field name="test_type"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page name="diagnosis" string="Diagnosis">
+                            <field name="critearea_ids" colspan="4" nolabel="1" widget="section_and_note_one2many">
+                                <tree editable="bottom" string="Test Cases">
+                                    <control>
+                                        <create string="Add a line"/>
+                                        <create string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                    </control>
+                                    <field name="sequence" widget="handle"/> 
+                                    <field name="display_type" invisible="1"/>
+                                    <field name="name" required="1" widget="section_and_note"/>
+                                    <field name="normal_range_male" attrs="{ 'required': [('display_type', '=', False)]}"/>
+                                    <field name="normal_range_female" attrs="{ 'required': [('display_type', '=', False)]}"/>
+                                    <field name="lab_uom_id"/>
+                                    <field name="remark"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="description" placeholder="Description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hms_test_tree">
+        <field name="name">Lab Tests</field>
+        <field name="model">ksc.lab.test</field>
+        <field name="arch" type="xml">
+            <tree string="Lab test type">
+                <field name="name"></field>
+                <field name="code"></field>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hms_action_form_test">
+        <field name="name">Lab Tests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ksc.lab.test</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add new Lab Test.
+            </p>
+        </field>
+    </record>
+
+</odoo>

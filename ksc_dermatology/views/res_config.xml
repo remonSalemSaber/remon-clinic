@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_dermatology" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Internal dermatology" string="Internal dermatology" data-key="ksc_dermatology">
+                    <h2 id="web_theme_extension_title">Internal dermatology</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Physicians</span>
+                                <div class="text-muted">
+                                    choice the doctors for this clinic
+                                </div>
+                                <div >
+                                    <field name="dermatology_physician_ids" widget="many2many_tags"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Consultation Service</span>
+                                <div class="text-muted">
+                                    choice the consultation service for this clinic
+                                </div>
+                                <div >
+                                    <field name="dermatology_consultation_product_id"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Rooms</span>
+                                <div class="text-muted">
+                                    choice the rooms for this clinic
+                                </div>
+                                <div >
+                                    <field name="dermatology_room_ids"  widget="many2many_tags"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Available Journals</span>
+                                <div class="text-muted">
+                                    choice the journals for this clinic
+                                </div>
+                                <div >
+                                    <field name="dermatology_journal_ids" domain="[('type', 'in', ('bank', 'cash'))]" widget="many2many_tags"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Calendar View</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="dermatology_calendar_min_time" string="Calendar Defaults"/>
+                                <div class="text-muted">
+                                    Defaults for calendar user interface
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <span>Calendar range time from <field name="dermatology_calendar_min_time" widget="float_time" class="oe_inline"/></span>
+                                    </div>
+                                    <div>
+                                        <span>to <field name="dermatology_calendar_max_time" widget="float_time" class="oe_inline"/></span>
+                                    </div>
+                                    <div>
+                                        <span>Start of working time is <field name="dermatology_calendar_start_time" widget="float_time" class="oe_inline"/></span>
+                                    </div>
+                                    <div>
+                                        <span>First day of the week is <field name="dermatology_calendar_weekday" class="oe_inline"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="dermatology_calendar_slot_minutes" string="Calendar Events"/>
+                                <div class="text-muted">
+                                    Defaults related to creation or modification of events/meetings in calendar view
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <span>Minutes per row is <field name="dermatology_calendar_slot_minutes" class="oe_inline"/> and this will be the default interval when resizing an event or a meeting</span>
+                                    </div>
+                                    <div class="mt4">
+                                        <span>Default minutes will be <field name="dermatology_calendar_snap_minutes" class="oe_inline"/> when creating an event or a meeting</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="dermatology_calendar_weekends"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="dermatology_calendar_weekends" string="Weekends"/>
+                                <div class="text-muted">
+                                    Calendar will show Saturday and Sunday
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="dermatology_calendar_weeknumber"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="dermatology_calendar_weeknumber" string="Week Number"/>
+                                <div class="text-muted">
+                                    Calendar will show week numbers
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="dermatology_calendar_disable_dragging"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="dermatology_calendar_disable_dragging" string="Disable Drag and Drop"/>
+                                <div class="text-muted">
+                                    Calendar will NOT allow event/meeting drag and drop
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="dermatology_calendar_disable_resizing"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="dermatology_calendar_disable_resizing" string="Disable Resizing"/>
+                                <div class="text-muted">
+                                    Calendar will NOT allow event/meeting resizing
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="dermatology_calendar_allow_overlap"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="dermatology_calendar_allow_overlap" string="Event Box Overlap"/>
+                                <div class="text-muted">
+                                    Calendar will allow overlapping event/meeting boxes
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_dermatology_config" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'ksc_dermatology', 'bin_size': False}</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_nose_and_ear" name="Nose And Ear" sequence="2" web_icon="ksc_nose_and_ear,static/description/icon.png"/>
+
+    <menuitem id="action_nose_and_ear_consultation" parent="menu_nose_and_ear" name="Consultation" sequence="1" action="action_ksc_nose_and_ear_consultation"/>
+    <menuitem id="action_nose_and_ear_appointment" parent="menu_nose_and_ear" name="Appointment" sequence="1" action="action_ksc_nose_and_ear_appointment"/>
+    <menuitem id="action_nose_and_ear_follow_up" parent="menu_nose_and_ear" name="Follow Up" sequence="1" action="action_ksc_nose_and_ear_follow_up"/>
+    
+
+    <menuitem id="action_menu_patient" parent="menu_nose_and_ear" name="Patients" sequence="2" action="ksc_nose_and_ear.action_patient"/>
+
+    <menuitem id="menu_action_move_out_invoice_type" parent="menu_nose_and_ear" action="account.action_move_out_invoice_type" sequence="3"/>
+    <menuitem id="menu_action_account_payments_receivable" parent="menu_nose_and_ear" action="action_account_payments" sequence="4"/>
+
+    <menuitem id="action_menu_config" parent="menu_nose_and_ear" name="Config" sequence="9" action="ksc_nose_and_ear.action_nose_and_ear_config"/>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="monday" model="custom.weekdays">
+            <field name="day">0</field>
+        </record>
+        <record id="tuesday" model="custom.weekdays">
+            <field name="day">1</field>
+        </record>
+        <record id="wednesday" model="custom.weekdays">
+            <field name="day">2</field>
+        </record>
+        <record id="thursday" model="custom.weekdays">
+            <field name="day">3</field>
+        </record>
+        <record id="friday" model="custom.weekdays">
+            <field name="day">4</field>
+        </record>    
+        <record id="saturday" model="custom.weekdays">
+            <field name="day">5</field>
+        </record>
+        <record id="sunday" model="custom.weekdays">
+            <field name="day">6</field>
+        </record>
+    </data>
+</odoo>

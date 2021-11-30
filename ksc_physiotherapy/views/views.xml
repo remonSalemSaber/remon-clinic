@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.view.form.inherit</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="ksc_clinic_base.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <group name="clinic" position="inside">
+                <field name="avalibel_in_physiotherapy" />
+            </group>
+        </field>
+    </record>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.view.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="ksc_clinic_base.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <group name="clinic" position="inside">
+                <field name="avalibel_in_physiotherapy" />
+                <field name="avalibel_in_physiotherapy_treatment_plan" />
+            </group>
+        </field>
+    </record>
+    
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">Patient Lab Test</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <field name="is_patient" invisible="1" />
+                <button name="action_view_physiotherapy"  attrs="{'invisible' : [('is_patient', '!=', True)]}" class="oe_stat_button" icon="fa-th-list" type="object" title="Physiotherapy" >
+                    <field string="Physiotherapy" name="physiotherapy_count" widget="statinfo"/>
+                </button>
+                <button name="action_create_physiotherapy"  attrs="{'invisible' : [('is_patient', '!=', True)]}" string="Create Physiotherapy" type="object" class="oe_stat_button" icon="fa-pencil-square-o"/>
+                
+                <button name="action_view_treatment_plan"  attrs="{'invisible' : [('is_patient', '!=', True)]}" class="oe_stat_button" icon="fa-th-list" type="object" title="treatment plan" >
+                    <field string="Treatment Plan" name="physiotherapy_count" widget="statinfo"/>
+                </button>
+                <button name="action_create_treatment_plan"  attrs="{'invisible' : [('is_patient', '!=', True)]}" string="Create Treatment Plan" type="object" class="oe_stat_button" icon="fa-pencil-square-o"/>
+            </div>
+        </field>
+    </record>
+
+    <record id="action_patient" model="ir.actions.act_window">
+        <field name="name">Patient</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="domain">[('is_patient','=',True)]</field>
+        <field name="context">{ 'default_is_patient' : 1 }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add a Patient
+            </p>
+        </field>
+    </record>
+</odoo>

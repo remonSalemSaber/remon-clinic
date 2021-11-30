@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="action_menu_patient" name="Patients" sequence="1" action="ksc_clinic_base.action_patient" web_icon="ksc_clinic_base,static/src/img/patient.png"/>
+    <menuitem id="action_menu_doctors" name="Physicians" sequence="2" action="ksc_clinic_base.action_physician" web_icon="ksc_clinic_base,static/src/img/physician.png"/>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ksc_wizard_appointment_followup_view" model="ir.ui.view">
+        <field name="name">ksc.wizard.appointment.followup</field>
+        <field name="model">ksc.wizard.appointment.followup</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="start_date" />
+                        <field name="end_date" />
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_create_followup" string="Ok" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

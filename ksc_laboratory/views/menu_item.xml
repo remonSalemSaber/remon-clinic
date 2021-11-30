@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Root Menu -->
+    <menuitem id="menu_laboratory" name="Laboratory" sequence="2" web_icon="ksc_laboratory,static/description/icon.png" /> 
+    <menuitem id='menu_lab_requestss' parent='menu_laboratory' action='hms_action_lab_test_request' sequence="10"/>
+    <menuitem id='menu_lab_test_result' action='action_lab_result' parent='menu_laboratory' sequence="20"/>
+    <menuitem id='menu_lab_sample' action='action_ksc_patient_laboratory_sample' parent='menu_laboratory' sequence="30"/>
+
+    <!-- Configuration -->
+    <menuitem id="menu_hms_lab_cofig" name="Configuration" parent="menu_laboratory" sequence="100"/>
+
+    <menuitem id='menu_lab_test' parent='menu_hms_lab_cofig' action='hms_action_form_test' sequence="10"/>
+    <menuitem id='menu_lab_test_uom' parent='menu_hms_lab_cofig' action='action_ksc_test_uom' sequence="20"/>
+    <menuitem id='menu_ksc_laboratory' parent='menu_hms_lab_cofig' action='action_ksc_laboratory' sequence="30"/>
+    <menuitem id='menu_ksc_laboratory_group' parent='menu_hms_lab_cofig' action='action_laboratory_group' sequence="40"/>
+    <menuitem id='menu_ksc_laboratory_sample_type' parent='menu_hms_lab_cofig' action='action_ksc_laboratory_sample_type' sequence="50"/>
+
+</odoo>

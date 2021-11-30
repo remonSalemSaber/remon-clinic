@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ksc_patient_laboratory_sample_user,ksc Test Sample User,model_ksc_patient_laboratory_sample,,1,1,1,1
+access_laboratory_group_line_dr,access_laboratory_group_line,model_laboratory_group_line,,1,1,1,1
+access_laboratory_group_dr,access_laboratory_group,model_laboratory_group,,1,1,1,1
+access_hms_lab_test_critearea_lab_user,ksc Test Criteria phy,model_lab_test_critearea,,1,1,1,1
+access_hms_laboratory_request_line_lab_user,ksc Patient Laboratory Request line  phy,model_laboratory_request_line,,1,1,1,1
+access_ksc_laboratory_lab_user,Laboratory Lab User,model_ksc_laboratory,,1,1,1,1
+access_hms_ksc_lab_test_lab_manager,ksc Test Type manager,model_ksc_lab_test,,1,1,1,1
+access_hms_patient_laboratory_test_lab_manager,Laboratory Test manager,model_patient_laboratory_test,,1,1,1,1
+access_hms_ksc_laboratory_request_lab_manager,patient lab Request manager,model_ksc_laboratory_request,,1,1,1,1
+access_ksc_lab_test_uom_lab_manager,Lab UOM Manager,model_ksc_lab_test_uom,,1,1,1,1
+access_ksc_laboratory_sample_type_manager,access_ksc_laboratory_sample_type,model_ksc_laboratory_sample_type,,1,1,1,1

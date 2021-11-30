@@ -1,0 +1,65 @@
+.chart_view_dashboard *{
+    box-sizing: border-box;
+}
+.chart_view_dashboard{
+    width: 100%;
+    
+}
+
+.teeth_chart{
+    width:80%;
+    height:60%;
+}
+
+.right_col {
+    width: 50%;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+}
+
+.numbering {
+    position: relative;
+    top: 25px;
+    left: 15px;
+    font-weight: 600;
+    font-size: 15px;
+}
+.numbering_below {
+    position: relative;
+    top: 230px;
+    left: 15px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+#close_screen{
+    display: block;
+    margin: 20px;
+}
+.close_div{
+    background-color: #f9f9f9;
+}
+.CSSTableGenerator{
+    box-shadow: none;
+}
+.panel-body li{
+    cursor: pointer;
+
+}
+.panel-body li:hover{
+    color: #008784;
+    text-decoration: underline;
+    
+}
+.progres_table tr:hover{
+    background-color: darkgrey;
+
+}
+#svg_object path{
+    border-radius: 5px;
+}
+
+.ksc_dental_note{
+    width: 40%;
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ksc_nutrition_category" model="ir.module.category">
+            <field name="name">nutrition</field>
+            <field name="parent_id" ref="ksc_clinic_base.ksc_clinic_base_category"/>
+        </record>
+
+        <record id="ksc_nutrition_nurse" model="res.groups">
+            <field name="name">Nurse</field>
+            <field name="category_id" ref="ksc_nutrition_category"/>
+        </record>
+
+        <record id="ksc_nutrition_doctor" model="res.groups">
+            <field name="name">Doctor</field>
+            <field name="implied_ids" eval="[(4, ref('ksc_nutrition_nurse'))]"/>
+            <field name="category_id" ref="ksc_nutrition_category"/>
+        </record>
+
+        <record id="ksc_nutrition_receptionist" model="res.groups">
+            <field name="name">Receptionist</field>
+            <field name="implied_ids" eval="[(4, ref('ksc_nutrition_doctor'))]"/>
+            <field name="category_id" ref="ksc_nutrition_category"/>
+        </record>
+
+        <record id="ksc_nutrition_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="implied_ids" eval="[(4, ref('ksc_nutrition_receptionist'))]"/>
+            <field name="category_id" ref="ksc_nutrition_category"/>
+        </record>
+    </data>
+</odoo>

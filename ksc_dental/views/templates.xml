@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="inherited_assets" inherit_id="web.assets_backend" name="Inherited assets backend">
+			<xpath expr="." position="inside">
+		        <script type="text/javascript" src="/ksc_dental/static/src/js/widgets.js"></script>
+		        <script type="text/javascript" src="/ksc_dental/static/src/js/child_dental_chart.js"></script>
+		        <script type="text/javascript" src="/ksc_dental/static/src/js/chart_action.js"></script>
+		        <script type="text/javascript" src="/ksc_dental/static/src/js/image_action.js"></script>
+		        <link rel="stylesheet" href="/ksc_dental/static/src/css/base_new.css" />
+				<link rel="stylesheet" href="/ksc_dental/static/src/css/style.css" />
+		    </xpath>
+		</template>		
+	</data>
+</odoo>

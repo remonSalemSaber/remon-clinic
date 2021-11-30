@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="seq_ksc_appointment" model="ir.sequence">
+        <field name="name">KSC Appointment</field>
+        <field name="code">ksc.appointment</field>
+        <field name="prefix">APP</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="view_ksc_appointment_search" model="ir.ui.view">
+        <field name="name">ksc.appointment.search</field>
+        <field name="model">ksc.appointment</field>
+        <field name="arch" type="xml">
+            <search string="Search Appointment Today">
+                <field name="name" />
+                <separator/>
+                <filter name="today" string="Today" domain="[('start_date','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59))), ('start_date','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"/>
+                <filter name="tomorrow" string="Tomorrow" domain="[('start_date','&lt;=', datetime.datetime.combine(context_today()+datetime.timedelta(days=1), datetime.time(23,59,59))), ('start_date','&gt;=', datetime.datetime.combine(context_today()+datetime.timedelta(days=1), datetime.time(0,0,0)))]" />
+                <separator/>
+                <filter name="done" string="Not Done" domain="[('state','!=','done')]"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Doctor's Appointments" name="physician_groupby" domain="[]" context="{'group_by':'physician_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_ksc_appointment_tree" model="ir.ui.view">
+        <field name="name">ksc.appointment.tree</field>
+        <field name="model">ksc.appointment</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='draft'" decoration-muted="state=='cancel'" decoration-danger="state=='waiting'" name="appointment_tree">
+                <field name="name" string="Appointment"/>
+                <field name="room_id" optional="show"/>
+                <field name="patient_id"/>
+                <field name="physician_id"/>
+                <field name="create_uid" optional="hide"/>
+                <field name="state" optional="show"/>
+                <field name="start_date" />
+                <field name="end_date" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ksc_appointment_form" model="ir.ui.view">
+        <field name="name">ksc.appointment.form</field>
+        <field name="model">ksc.appointment</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="appointment_confirm" states="draft" type="object" string="Confirm" class="oe_highlight"/>
+                    <button name="appointment_waiting" states="confirm" type="object" string="Waiting" class="oe_highlight"/>
+                    <button name="appointment_consultation" states="waiting" type="object" string="In Consultation" class="oe_highlight"/>
+                    <button name="action_pause" states="in_consultation" type="object" string="Pause"/>
+                    <button name="action_start_paused" states="pause" type="object" string="Start"/>
+                    <button name="consultation_done" states="in_consultation" type="object" string="Consultation Done" class="oe_highlight"/>
+
+                    <button name="create_invoice" string="Create Invoice"  attrs="{'invisible': [('invoice_id','!=',False)]}" type="object" class="oe_highlight"/>
+                    
+                    <button name="appointment_draft" string="Draft" states="cancel" type="object" class="oe_highlight"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,waiting,in_consultation,done"/>
+                    <field name="invoice_id" invisible="1" />
+                </header>
+               
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_invoice" string="View Invoice" groups="account.group_account_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o"/>
+                        <button name="action_open_wizard" string="Create Follow Up" type="object" class="oe_stat_button" icon="fa-pencil-square-o"/>
+                        <button name="action_create_evaluation" string="Create Evaluation" type="object" class="oe_stat_button" icon="fa-pencil-square-o"/>
+                    </div>
+                    <field name="image_128" widget='image' class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="id" invisible="1"/>
+                            <field name="patient_id" context="{'default_is_patient':1,'appointment_id':id}"/>
+                            <!-- <field name="age"/> -->
+                            <field name="physician_id" context="{'default_is_physician':1,'appointment_id':id}" required="1"/>
+                            <field name="product_id" required="1"/>
+                        </group>
+                        <group>
+                            <label for="start_date" string="Date"/>
+                            <div>
+                                <field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+                            </div>
+                            <field name="room_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="diseases_ids" string="Diseases">
+                            <field name="diseases_ids" nolabel="1" colspan="4" />
+                        </page>
+                        <page name="advice" string="D/D &amp; Advice">
+                            <separator string="Differential Diagnosis"/>
+                            <field name="differencial_diagnosis" placeholder="Differential Diagnosis..."/>
+                            <separator string="Medical Advice"/>
+                            <field name="medical_advice" placeholder="Medical Advice..."/>
+                        </page>
+                    </notebook>
+                    <separator string="Notes"/>
+                    <field name="notes" placeholder="Notes..."/>
+                    <separator string="Cancel Reason"/>
+                    <field name="cancel_reason" placeholder="Cancel Reason..."/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ksc_appointment_calendar" model="ir.ui.view">
+        <field name="name">ksc.appointment.calendar</field>
+        <field name="model">ksc.appointment</field>
+        <field name="arch" type="xml">
+            <calendar mode="day" quick_add="False" string="Appointments" color="state" date_start="start_date" date_stop="end_date">
+                <field name="name" />
+                <field name="room_id" />
+                <field name="patient_id"/>
+                <field name="physician_id"/>
+                <field name="create_uid" />
+                <field name="state" />
+                <field name="start_date" />
+                <field name="end_date" />
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_ksc_appointment" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="res_model">ksc.appointment</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add a Appointment
+            </p>
+        </field>
+    </record>
+
+    <!-- <menuitem id="menu_Appointment" name="Appointment" sequence="2" />
+    <menuitem id="action_appointment" parent="menu_Appointment" name="Appointment" sequence="1" action="action_ksc_appointment"/> -->
+
+</odoo>

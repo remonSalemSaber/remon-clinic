@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="planned_operation_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Name : </strong>
+                                    <span t-field="doc.name" />
+                                </div>
+                                <div class="col-6">
+                                    <strong>Date of Birth : </strong>
+                                    <span t-field="doc.dob" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Code : </strong>
+                                    <span t-field="doc.code" />
+                                </div>
+                                <div class="col-6">
+                                    <strong>Age : </strong>
+                                    <span t-field="doc.age" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Gender : </strong>
+                                    <span t-field="doc.sex" />
+                                </div>
+                                <div class="col-6">
+                                    <strong>Marital Status : </strong>
+                                    <span t-field="doc.marital_status" />
+                                </div>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Created by</th>
+                                        <th>Tooth</th>
+                                        <th>Description</th>
+                                        <th>Surface</th>
+                                        <th>Status</th>
+                                        <th>Amount</th>
+                                        <th>Discount %</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.planned_operation_ids" t-as="line">
+                                        <td>
+                                            <span t-field="line.create_uid"/>
+                                        </td>
+                                        <td>
+                                            <span  t-field="line.teeth_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.description"/>
+                                        </td>
+                                        <td>
+                                            <span  t-field="line.detail_description"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.state"/>
+                                        </td>
+                                        <td>
+                                            <span  t-field="line.amount"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.discount"/>
+                                        </td>
+                                        <td>
+                                            <span  t-field="line.total"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Total : </strong>
+                                    <span t-esc="sum([x.total for x in doc.planned_operation_ids])" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        	
+	    <report 
+	    	id="planned_operation_report_action"
+	    	string="Planned Operation"
+	    	model="res.partner"
+	    	report_type="qweb-pdf"
+	    	file="ksc_dental.planned_operation_report_template"
+	    	name="ksc_dental.planned_operation_report_template"
+	    	print_report_name="'Planned Operation -%s' %(object.name)"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_obstetrics_and_gynecology" name="Obstetrics And Gynecology" sequence="2" web_icon="ksc_obstetrics_and_gynecology,static/description/icon.png"/>
+
+    <menuitem id="action_obstetrics_and_gynecology_consultation" parent="menu_obstetrics_and_gynecology" name="Consultation" sequence="1" action="action_ksc_obstetrics_and_gynecology_consultation"/>
+    <menuitem id="action_obstetrics_and_gynecology_appointment" parent="menu_obstetrics_and_gynecology" name="Appointment" sequence="1" action="action_ksc_obstetrics_and_gynecology_appointment"/>
+    <menuitem id="action_obstetrics_and_gynecology_follow_up" parent="menu_obstetrics_and_gynecology" name="Follow Up" sequence="1" action="action_ksc_obstetrics_and_gynecology_follow_up"/>
+    
+
+    <menuitem id="action_menu_patient" parent="menu_obstetrics_and_gynecology" name="Patients" sequence="2" action="ksc_obstetrics_and_gynecology.action_patient"/>
+
+
+    <menuitem id="menu_action_move_out_invoice_type" parent="menu_obstetrics_and_gynecology" action="account.action_move_out_invoice_type" sequence="3"/>
+    <menuitem id="menu_action_account_payments_receivable" parent="menu_obstetrics_and_gynecology" action="action_account_payments" sequence="4"/>
+
+    <menuitem id="action_menu_config" parent="menu_obstetrics_and_gynecology" name="Config" sequence="9" action="ksc_obstetrics_and_gynecology.action_obstetrics_and_gynecology_config"/>
+</odoo>

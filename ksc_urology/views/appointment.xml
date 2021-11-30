@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="seq_ksc_urology_appointment" model="ir.sequence">
+        <field name="name">KSC Appointment</field>
+        <field name="code">ksc.urology.appointment</field>
+        <field name="prefix">APP</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="view_ksc_urology_appointment_search" model="ir.ui.view">
+        <field name="name">ksc.urology.appointment.search</field>
+        <field name="model">ksc.urology.appointment</field>
+        <field name="mode">primary</field>
+        <field name="priority" eval="8" />
+        <field name="inherit_id" ref="ksc_clinic_base.view_ksc_appointment_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="replace">
+                <field name="name" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_ksc_urology_appointment_tree" model="ir.ui.view">
+        <field name="name">ksc.urology.appointment.tree</field>
+        <field name="model">ksc.urology.appointment</field>
+        <field name="mode">primary</field>
+        <field name="priority" eval="8" />
+        <field name="inherit_id" ref="ksc_clinic_base.view_ksc_appointment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="replace">
+                <field name="name" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_ksc_urology_appointment_form" model="ir.ui.view">
+        <field name="name">ksc.urology.appointment.form</field>
+        <field name="model">ksc.urology.appointment</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="ksc_clinic_base.view_ksc_appointment_form"/>
+        <field name="priority" eval="8" />
+        <field name="arch" type="xml">
+            <page name="diseases_ids" position="before">
+                <page name="service_products" string="Service Products">
+                    <field name="service_line_ids" nolabel="1" colspan="4">
+                        <tree string="Line" editable="bottom">
+                            <field name="product_id" domain="[('avalibel_in_urology','=',True)]" required="1"/>
+                            <field name="product_uom" required="1"/>
+                            <field name="qty" required="1"/>
+                            <field name="date" required="1"/>
+                            <field name="move_id" invisible="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    
+    <record id="view_ksc_urology_appointment_calendar" model="ir.ui.view">
+        <field name="name">ksc.urology.appointment.calendar</field>
+        <field name="model">ksc.urology.appointment</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="ksc_clinic_base.view_ksc_appointment_calendar"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="replace">
+                <field name="name" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_ksc_urology_consultation" model="ir.actions.act_window">
+        <field name="name">Consultation</field>
+        <field name="res_model">ksc.urology.appointment</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('follow_up','=',False)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add a Consultation
+            </p>
+        </field>
+    </record>
+
+    <record id="action_ksc_urology_appointment" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="res_model">ksc.urology.appointment</field>
+        <field name="view_mode">calendar,tree,kanban,form,activity</field>
+        <field name="domain">[('follow_up','=',False)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add a Appointment
+            </p>
+        </field>
+    </record>
+
+    <record id="action_ksc_urology_follow_up" model="ir.actions.act_window">
+        <field name="name">Follow Up</field>
+        <field name="res_model">ksc.urology.appointment</field>
+        <field name="view_mode">calendar,tree,kanban,form,activity</field>
+        <field name="domain">[('follow_up','=',True)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add a follow up
+            </p>
+        </field>
+    </record>
+
+
+    <record id="action_account_payments" model="ir.actions.act_window">
+        <field name="name">Payments</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="context">{
+            'default_payment_type': 'inbound',
+            'default_partner_type': 'customer',
+            'search_default_inbound_filter': 1,
+            'default_move_journal_types': ('bank', 'cash'),
+            'urology':1,
+        }</field>
+        <field name="view_id" ref="account.view_account_payment_tree"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+              Register a payment
+            </p><p>
+              Payments are used to register liquidity movements. You can process those payments by your own means or by using installed facilities.
+            </p>
+        </field>
+    </record>
+
+
+</odoo>

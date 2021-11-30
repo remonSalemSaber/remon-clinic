@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_physiotherapy" name="physiotherapy" sequence="2" web_icon="ksc_physiotherapy,static/description/icon.png"/>
+
+    <menuitem id="action_physiotherapy_consultation" parent="menu_physiotherapy" name="Consultation" sequence="1" action="action_ksc_physiotherapy_consultation"/>
+    <menuitem id="action_physiotherapy_appointment" parent="menu_physiotherapy" name="Appointment" sequence="1" action="action_ksc_physiotherapy_appointment"/>
+    <menuitem id="action_physiotherapy_follow_up" parent="menu_physiotherapy" name="Follow Up" sequence="1" action="action_ksc_physiotherapy_follow_up"/>
+    
+    <menuitem id="main_hos_physiotherapy" name="Physiotherapy" sequence="1" parent="menu_physiotherapy" action="ksc_physiotherapy.ksc_action_form_physiotherapy"/>
+
+    <menuitem id="action_menu_patient" parent="menu_physiotherapy" name="Patients" sequence="2" action="ksc_physiotherapy.action_patient"/>
+
+    <menuitem id="menu_action_move_out_invoice_type" parent="menu_physiotherapy" action="account.action_move_out_invoice_type" sequence="3"/>
+    <menuitem id="menu_action_account_payments_receivable" parent="menu_physiotherapy" action="action_account_payments" sequence="4"/>
+
+    <menuitem id="menu_treatment_parent" name="Treatment Plan" parent="menu_physiotherapy" sequence="5"/>
+    <menuitem id="menu_treatment_plan" name="Treatment Plan" parent="menu_treatment_parent" action="ksc_physiotherapy.action_treatment_plan"/>
+    <menuitem id="menu_treatment_category" name="Treatment Category" parent="menu_treatment_parent" action="ksc_physiotherapy.action_treatment_category"/>
+    <menuitem id="menu_treatment_treatment" name="Treatment" parent="menu_treatment_parent" action="ksc_physiotherapy.action_treatment_treatment"/>
+    <menuitem id="menu_slot_time" name="Slot Time" parent="menu_treatment_parent" action="ksc_physiotherapy.action_slot_time"/>
+
+    
+
+    <!-- Configuration -->
+    <menuitem id="menu_physiotherapy_cofig" name="Configuration" parent="menu_physiotherapy" sequence="100"/>
+    <menuitem id="action_menu_config" parent="menu_physiotherapy_cofig" name="Config" sequence="9" action="ksc_physiotherapy.action_physiotherapy_config"/>
+    <menuitem id="hos_physiotherapy_exercise_master" parent="menu_physiotherapy_cofig" action="ksc_physiotherapy.ksc_action_form_physiotherapy_exercise_group" />
+    <menuitem id="hos_hms_physiotherapy_notetemplate" parent="menu_physiotherapy_cofig" name="Note Template" action="ksc_physiotherapy.hms_physiotherapy_notetemplate_action" />
+    <menuitem id="hos_hms_physiotherapy_selectionnotetemplate" parent="menu_physiotherapy_cofig" name="SelectionNote Template" action="ksc_physiotherapy.hms_physiotherapy_selectionnotetemplate_action" />
+
+    <menuitem id="menu_date_template" parent="menu_physiotherapy_cofig" name="Date Template"  action="ksc_physiotherapy.action_date_template"/>
+    <!-- <menuitem id="menu_action_weekdays" parent="menu_physiotherapy_cofig" name="Weekdays"  action="ksc_physiotherapy.action_weekdays"/> -->
+</odoo>

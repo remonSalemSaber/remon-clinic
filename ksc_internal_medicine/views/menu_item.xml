@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_internal_medicine" name="Internal Medicine" sequence="2" web_icon="ksc_internal_medicine,static/description/icon.png"/>
+
+    <menuitem id="action_medicine_consultation" parent="menu_internal_medicine" name="Consultation" sequence="1" action="action_ksc_medicine_consultation"/>
+    <menuitem id="action_medicine_appointment" parent="menu_internal_medicine" name="Appointment" sequence="1" action="action_ksc_medicine_appointment"/>
+    <menuitem id="action_medicine_follow_up" parent="menu_internal_medicine" name="Follow Up" sequence="1" action="action_ksc_medicine_follow_up"/>
+    
+
+    <menuitem id="action_menu_patient" parent="menu_internal_medicine" name="Patients" sequence="2" action="ksc_internal_medicine.action_patient"/>
+
+    <menuitem id="menu_action_move_out_invoice_type" parent="menu_internal_medicine" action="account.action_move_out_invoice_type" sequence="3"/>
+    <menuitem id="menu_action_account_payments_receivable" parent="menu_internal_medicine" action="action_account_payments" sequence="4"/>
+
+    <menuitem id="action_menu_config" parent="menu_internal_medicine" name="Config" sequence="9" action="ksc_internal_medicine.action_medicine_config"/>
+</odoo>

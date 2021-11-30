@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="ortho_plan_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Name : </strong>
+                                    <span t-field="doc.name" />
+                                </div>
+                                <div class="col-6">
+                                    <strong>Date of Birth : </strong>
+                                    <span t-field="doc.dob" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Code : </strong>
+                                    <span t-field="doc.code" />
+                                </div>
+                                <div class="col-6">
+                                    <strong>Age : </strong>
+                                    <span t-field="doc.age" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Gender : </strong>
+                                    <span t-field="doc.sex" />
+                                </div>
+                                <div class="col-6">
+                                    <strong>Marital Status : </strong>
+                                    <span t-field="doc.marital_status" />
+                                </div>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Created by</th>
+                                        <th>Physician</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.ortho_plan_ids" t-as="line">
+                                        <td>
+                                            <span t-field="line.create_uid"/>
+                                        </td>
+                                        <td>
+                                            <span  t-field="line.physician_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.product_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.state"/>
+                                        </td>
+                                        <td>
+                                            <span  t-field="line.amount"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Total : </strong>
+                                    <span t-esc="sum([x.amount for x in doc.ortho_plan_ids])" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        	
+	    <report 
+	    	id="ortho_plan_report_action"
+	    	string="Orthodontic Plan"
+	    	model="res.partner"
+	    	report_type="qweb-pdf"
+	    	file="ksc_dental.ortho_plan_report_template"
+	    	name="ksc_dental.ortho_plan_report_template"
+	    	print_report_name="'Orthodontic Plan -%s' %(object.name)"
+        />
+    </data>
+</odoo>
